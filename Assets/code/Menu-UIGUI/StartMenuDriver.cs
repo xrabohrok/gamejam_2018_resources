@@ -11,6 +11,7 @@ public class StartMenuDriver : MonoBehaviour
         NONE,
         CREDITS,
         GAME,
+        SCENEJUMPA,
         END
     };
 
@@ -23,6 +24,8 @@ public class StartMenuDriver : MonoBehaviour
 
     public int gameStartSceneIndex = 1;
     public int creditsSceneIndex = 1;
+
+    public int sceneJumpAIndex = 2;
 
     private Animator _animations;
 
@@ -61,11 +64,15 @@ public class StartMenuDriver : MonoBehaviour
 	            {
 	                Application.Quit();
 	            }
+                else if (chosenScene == nextScene.SCENEJUMPA)
+	            {
+	                SceneManager.LoadScene(sceneJumpAIndex);
+	            }
 	            nextSceneDelay = 0;
 	        }
 	        else
 	        {
-	            nextSceneDelay += Time.deltaTime;
+	            nextDelay += Time.deltaTime;
 	        }
 	    }
 	}
@@ -89,6 +96,13 @@ public class StartMenuDriver : MonoBehaviour
     public void credits()
     {
         chosenScene = nextScene.CREDITS;
+        _animations.SetTrigger("Used");
+        Debug.Log("loading credits...");
+    }
+
+    public void sceneJumpA()
+    {
+        chosenScene = nextScene.SCENEJUMPA;
         _animations.SetTrigger("Used");
         Debug.Log("loading credits...");
     }
