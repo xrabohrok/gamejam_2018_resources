@@ -10,7 +10,9 @@ public class DialogueEngine : MonoBehaviour
 {
     public TextAsset stuff;
 
-    public float timeToFinish = 2.0f;
+    private float timeToFinish;
+    private float secondsPerCharacter;
+    public float charactersPerSecond = 5;
     public List<speaker> speakers;
     public KeyCode continueKey = KeyCode.Space;
     private Dictionary<string, speaker> lookupPeeps;
@@ -41,7 +43,10 @@ public class DialogueEngine : MonoBehaviour
 	}
 
     // Update is called once per frame
-    void Update () {
+    void Update ()
+    {
+
+        secondsPerCharacter = 1 / charactersPerSecond;
 	    if (stuff != null)
 	    {
 	        if (advance)
@@ -91,7 +96,7 @@ public class DialogueEngine : MonoBehaviour
 	        }
 
             var charCount = wholeText.Length;
-            
+	        timeToFinish = secondsPerCharacter * charCount;
 	        var length = Mathf.CeilToInt( Mathf.Lerp(0, charCount - 1,  Mathf.Clamp(progress / timeToFinish, 0, 1)));
 //            Debug.Log($"charCount : {charCount}, substring : {length}, ticks: {progress}, readyToAdvance: {readyToAdvance}");
 	        displayText = wholeText.Substring(0, length);
