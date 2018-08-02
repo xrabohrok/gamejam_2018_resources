@@ -227,10 +227,10 @@ ModelImporter:
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
+      loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
+      keepOriginalPositionXZ: 1
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
@@ -366,8 +366,6 @@ ModelImporter:
       - path: Armature/ROOT/knee_ik_L
         weight: 0
       - path: Armature/ROOT/knee_ik_R
-        weight: 0
-      - path: Circle_bone
         weight: 0
       - path: Mesh
         weight: 0
@@ -2338,10 +2336,10 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 1
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
@@ -2479,8 +2477,6 @@ ModelImporter:
       - path: Armature/ROOT/knee_ik_L
         weight: 0
       - path: Armature/ROOT/knee_ik_R
-        weight: 0
-      - path: Circle_bone
         weight: 0
       - path: Mesh
         weight: 0
