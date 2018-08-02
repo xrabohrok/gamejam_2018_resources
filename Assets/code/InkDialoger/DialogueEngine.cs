@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Ink.Runtime;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,7 +18,7 @@ public class DialogueEngine : MonoBehaviour
     public KeyCode continueKey = KeyCode.Space;
     private Dictionary<string, speaker> lookupPeeps;
     private Story storyPlayer;
-    public Text textTarget;
+    public TextMeshProUGUI textTarget;
     public Transform ButtonPrefab;
     public Transform buttonLocation;
     public float buttonDisplacement;
