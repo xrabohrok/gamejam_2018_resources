@@ -22,6 +22,7 @@ public class DialogueEngine : MonoBehaviour
     public Transform buttonLocation;
     public float buttonDisplacement;
     public Camera profileCamera;
+    public Animator anim;
 
     private string displayText;
     private string wholeText;
@@ -46,6 +47,11 @@ public class DialogueEngine : MonoBehaviour
 	    advance = true;
 	    textTarget.text = "";
         currentChoices = new List<GameObject>();
+
+	    if (anim == null)
+	    {
+	        anim = this.GetComponent<Animator>();
+	    }
 	}
 
     // Update is called once per frame
@@ -61,6 +67,7 @@ public class DialogueEngine : MonoBehaviour
 	            {
 	                wholeText = storyPlayer.Continue();
 	                SetPortrait();
+	                if (anim != null) anim.SetBool("Text", true);
 	            }
 
 	            advance = false;
@@ -122,6 +129,7 @@ public class DialogueEngine : MonoBehaviour
 
     private void SetPortrait()
     {
+        var hasPortrait = false;
         foreach (var speaker in speakers)
         {
             var speakerTag = speaker.speakerName + ":";
@@ -133,8 +141,10 @@ public class DialogueEngine : MonoBehaviour
                     profileCamera.transform.position = lookupPeeps[speaker.speakerName].camAngle.position;
                     profileCamera.transform.rotation = lookupPeeps[speaker.speakerName].camAngle.rotation;
                 }
+                hasPortrait = true;
             }
         }
+        if(anim != null) anim.SetBool("Portrait", hasPortrait) ;
     }
 
     private void clearChoices()
@@ -161,7 +171,5 @@ public class DialogueEngine : MonoBehaviour
 public class speaker
 {
     public string speakerName;
-    public Transform prefabAttached;
-    public bool hasAnimator;
     public Transform camAngle;
 }
