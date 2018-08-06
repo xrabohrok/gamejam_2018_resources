@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using Ink.Runtime;
 using TMPro;
@@ -22,6 +21,7 @@ public class DialogueEngine : MonoBehaviour
     public Transform ButtonPrefab;
     public Transform buttonLocation;
     public float buttonDisplacement;
+    public Camera profileCamera;
 
     private string displayText;
     private string wholeText;
@@ -35,7 +35,12 @@ public class DialogueEngine : MonoBehaviour
     // Use this for initialization
 	void Start () {
         lookupPeeps = new Dictionary<string, speaker>();
-	    storyPlayer = new Story(stuff.text);
+	    foreach (var speaker in speakers)
+	    {
+	        lookupPeeps[speaker.speakerName] = speaker;
+	    }
+
+        storyPlayer = new Story(stuff.text);
 	    progress = 0f;
 	    readyToAdvance = false;
 	    advance = true;
@@ -55,6 +60,7 @@ public class DialogueEngine : MonoBehaviour
 	            if (storyPlayer.canContinue)
 	            {
 	                wholeText = storyPlayer.Continue();
+	                SetPortrait();
 	            }
 
 	            advance = false;
@@ -114,6 +120,23 @@ public class DialogueEngine : MonoBehaviour
         }
     }
 
+    private void SetPortrait()
+    {
+        foreach (var speaker in speakers)
+        {
+            var speakerTag = speaker.speakerName + ":";
+            if (wholeText.Contains(speakerTag))
+            {
+                wholeText = wholeText.Replace(speakerTag, "");
+                if (profileCamera != null)
+                {
+                    profileCamera.transform.position = lookupPeeps[speaker.speakerName].camAngle.position;
+                    profileCamera.transform.rotation = lookupPeeps[speaker.speakerName].camAngle.rotation;
+                }
+            }
+        }
+    }
+
     private void clearChoices()
     {
         foreach (var currentChoice in currentChoices)
@@ -140,4 +163,5 @@ public class speaker
     public string speakerName;
     public Transform prefabAttached;
     public bool hasAnimator;
+    public Transform camAngle;
 }
