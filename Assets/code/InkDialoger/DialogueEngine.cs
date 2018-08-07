@@ -31,6 +31,8 @@ public class DialogueEngine : MonoBehaviour
     private bool readyToAdvance;
     private bool choicesDrawn;
     private List<GameObject> currentChoices;
+    private TMP_FontAsset defaultFont;
+    private TextMeshProUGUI tmpText;
 
     private bool advance;
 
@@ -58,6 +60,9 @@ public class DialogueEngine : MonoBehaviour
 	        anim = this.GetComponent<Animator>();
 	    }
 	    portraitName = "";
+
+	    tmpText = GetComponentInChildren<TextMeshProUGUI>();
+	    defaultFont = tmpText.font;
 	}
 
     // Update is called once per frame
@@ -172,9 +177,22 @@ public class DialogueEngine : MonoBehaviour
                 }
                 hasPortrait = true;
                 portraitName = speaker.speakerName;
+
+                if (speaker.speakerFont != null)
+                {
+                    tmpText.font = speaker.speakerFont;
+                }
+                else
+                {
+                    tmpText.font = defaultFont;
+                }
             }
         }
         if(anim != null) anim.SetBool("Portrait", hasPortrait) ;
+        if (!hasPortrait)
+        {
+            tmpText.font = defaultFont;
+        }
     }
 
     private void clearChoices()
@@ -204,4 +222,5 @@ public class speaker
     public Transform camAngle;
     public Animator speakerAnimator;
     public List<string> speakingTriggers;
+    public TMP_FontAsset speakerFont;
 }
